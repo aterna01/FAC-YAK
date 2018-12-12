@@ -1,4 +1,8 @@
+
+[![Build Status](https://travis-ci.org/fac-15/FAC-YAK.svg?branch=staging)](https://travis-ci.org/fac-15/FAC-YAK)
+
 [![codecov](https://codecov.io/gh/fac-15/FAC-YAK/branch/staging/graph/badge.svg)](https://codecov.io/gh/fac-15/FAC-YAK)
+
 
 # Fac Yak
 
@@ -10,3 +14,27 @@ A thing where you can add and view lightning talks at Founders and Coders. Sign 
 - [Martin](https://github.com/mr-bagglesworth)
 
 ![yak](https://i.imgur.com/OGfSmfb.jpg)
+
+
+## To get it running:
+1. clone repo
+2. `npm install`
+3. run database build scripts:
+    `node database/bd_build.js` - main database, hosted on heroku. **NOTE** this will overwrite current database
+    `node database/bd_build_test.js` - testing database
+4. view project on [port 8000](http://localhost:8000/)
+
+### Dev Dependencies:
+- nodemon
+- tape
+- tap-spec
+- codecov
+- nyc / istanbul
+- supertest
+
+### Dependencies:
+- bcryptjs
+- cookie
+- jsonwebtoken
+
+
