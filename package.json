@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "tape tests/test.js | tap-spec",
+    "coverage": "istanbul cover tests/test.js | tap-spec",
     "test_database": "tape NODE_ENV=test node test/test.js | tap-spec",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/foundersandcoders/FAC-YAK#readme",
   "devDependencies": {
+    "istanbul": "^0.4.5",
     "nodemon": "^1.18.8",
     "supertest": "^3.3.0",
     "tap-spec": "^5.0.0",
