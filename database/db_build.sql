@@ -1,0 +1,21 @@
+BEGIN;
+
+DROP TABLE IF EXISTS users cascade;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  password VARCHAR(200) NOT NULL
+);
+
+  DROP TABLE IF EXISTS talks cascade;
+
+  CREATE TABLE talks (
+    id SERIAL PRIMARY KEY NOT NULL,
+    user_id INTEGER REFERENCES users (id),
+    title VARCHAR(100) NOT NULL,
+    date DATE NOT NULL,
+    time TIME NOT NULL
+  );
+
+COMMIT;
