@@ -1,0 +1,37 @@
+{
+  "name": "FAC-YAK",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "tape tests/test.js | tap-spec",
+    "test_database": "tape NODE_ENV=test node test/test.js | tap-spec",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foundersandcoders/FAC-YAK.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/foundersandcoders/FAC-YAK/issues"
+  },
+  "homepage": "https://github.com/foundersandcoders/FAC-YAK#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.8",
+    "supertest": "^3.3.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.3.1",
+    "jsonwebtoken": "^8.4.0"
+  }
+}
