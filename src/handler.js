@@ -95,18 +95,23 @@ const handleSignUp = (request, response) => {
       if (err) {
         console.log(err);
         //this file logs the user console.log
+      } else {
+        const cookie = sign(userDetails, SECRET);
+        console.log(cookie);
+        console.log("HELLO");
+        // response.redirect("/");
+        response.writeHead(302, {
+          //;
+
+          Location: "/getTalks",
+
+          "Set-Cookie": `jwt=${cookie}; HttpOnly`
+        });
+        console.log("HELLO2");
+        return response.end("end");
       }
     });
   });
-  const cookie = sign(userDetails, SECRET);
-  console.log(cookie);
-  response.writeHead(302, {
-    //res.redirect('/google.com');
-    Location: "http://localhost:8000/public/index.html",
-
-    "Set-Cookie": `jwt=${cookie}; HttpOnly`
-  });
-  response.end("end");
 };
 
 module.exports = {
