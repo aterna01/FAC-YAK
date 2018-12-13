@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const getData = require("./db_handlers/getData");
+const postData = require("./db_handlers/postData");
 // const request = require("request");
 
 // getData and postData
@@ -65,6 +66,37 @@ const handleTalks = (request, response) => {
 
 const handleSignUp = (request, response) => {
   console.log(request, " handleSignUp");
+
+  // standard form behaviour - data gets sent to a new webpage in html format
+
+  // receive data from the form
+  let allTheData = "";
+  request.on("data", function(chunkOfData) {
+    // text from form - outputs buffers
+    allTheData += chunkOfData;
+  });
+
+  request.on("end", function() {
+    // use form data
+    const formData = allTheData.split(",");
+    console.log("formdata : ", formData);
+
+    // post to db
+    // - args will be: person, food, veg, paid
+    postData(formData, (err, res) => {
+      if (err) console.log(err);
+      // const postResult = res;
+
+      // run AFTER postData is run - get latest item output to DOM
+      // ...but that doesn't seem to work
+      // getData((err, res) => {
+      //   if (err) throw err;
+      //   const output = JSON.stringify(res);
+      //   response.writeHead(200, { "Content-Type": "application/JSON" });
+      //   response.end(output);
+      // });
+    });
+  });
 };
 
 module.exports = {
