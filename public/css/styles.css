@@ -4,8 +4,9 @@
   --green: #1f7736;
   --green-hover: #0ed642;
 }
-/* color: var(--pink); */
-
+html {
+  scroll-behavior: smooth;
+}
 /* set border-box on everything */
 * {
   box-sizing: border-box;
@@ -22,26 +23,14 @@ body {
     radial-gradient(transparent, rgba(0, 0, 0, 0.5)),
     url('../img/fac-yak_bg.jpg');
   background-repeat: no-repeat;
-  /* 100vh with no overflow = background-size of cover
-    - keeps bg image size consistent, but if exceed viewport height, left with white bg underneath
-  */
-  background-size: cover; /* set to auto on login and dashboard */
-  /* background-size: 100%; */
-  /* height: 100%; */
+  background-size: cover;
   height: 100vh;
-
 }
 .dashboard,
 .signup-login {
-  /* background-size: auto; */
   height: auto;
 }
-/*
-if only using bg image on home, add this:
-body.home {
-  text-shadow: 0.1em 0.1em 0.1em white;
-}
-*/
+
 
 
 h1 {
@@ -138,6 +127,10 @@ a {
   text-shadow: none;/* reset text shadow on body */
 }
 
+#login-heading {
+  margin-top: 4rem;
+}
+
 .form label {
   font-size: 1.25rem;
   margin-bottom : 0.25rem;
@@ -172,6 +165,11 @@ a {
 .button-input.login:focus {
   background-color: var(--green-hover);;
 }
+.button-input a,
+.button-input a:hover,
+.button-input a:focus {
+  color: white;
+}
 
 
 
@@ -197,12 +195,17 @@ a {
 
 
 
+/* form error classes */
 
+/* - input field style */
 .error-red {
   background-color : var(--pink);
   border: 2px solid var(--pink-hover);
   color: white;
 }
+
+
+
 
 
 
@@ -219,6 +222,7 @@ a {
   border-radius: 0.5rem;
   border: 2px solid var(--pink);
   background-color: white;
+  list-style: none;
 }
 
 .talk-name {
@@ -233,3 +237,6 @@ a {
 .time {
   padding-right: 1rem;
 }
+
+
+
