@@ -1,4 +1,4 @@
-const populateSelect = function(data) {
+const populateSelect = data => {
   const ul = document.querySelector("#talk_list ul");
 
   const list = data.map(
@@ -15,7 +15,29 @@ const populateSelect = function(data) {
   ul.innerHTML = list;
 };
 
-requestFunction("GET", "/getTalks", populateSelect);
+const body = document.querySelector("body");
+if (body.classList.contains("home")) {
+  requestFunction("GET", "/getTalks", populateSelect);
+}
+
+const signupForm = document.querySelector(".signup-form");
+signupForm.addEventListener("submit", e => {
+  e.preventDefault();
+  // console.dir(e.target);
+  const name = e.target[0].value;
+  const password = e.target[1].value;
+  const confirmPassword = e.target[2].value;
+  const formInfo = [name, password, confirmPassword];
+
+  requestFunction("POST", "/signUp", submitMessage, formInfo);
+  // console.log(name);
+});
+
+const submitMessage = () => {
+  const h2 = document.querySelector("#signup-heading");
+  h2.textContent = "Sign up form submitted successfully";
+  form.reset();
+};
 
 ///font end validation
 document
