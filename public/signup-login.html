@@ -24,17 +24,17 @@
         </div>
       </section>
     </header>
-  
+
     <header class="page-header">
       <h1>FAC YAK - Login or Signup</h1>
     </header>
-  
+
   <main class="page-content">
 
     <section class="main-section">
 
         <article>
-            <h2>Sign Up</h2>
+            <h2 id ='signup-heading'>Sign Up</h2>
             <form class="signup-form form" method="post" action="/signUp">
                 <label for="signup-name">Name (3-40 characters)</label>
                 <input id="signup-name" class="text-input" type="text" name="name" value="" placeholder= "Enter your name..." autocomplete="off" pattern="[a-zA-Z'\s]{3,40}">
@@ -45,7 +45,7 @@
                 <label for="confirm-password">Confirm Password</label>
                 <input id="confirm-password" class="text-input" type="password" name="password" value="" placeholder= "Confirm your password..." autocomplete="off" >
 
-                <input class="button-input" type="submit" name="submit" value="Sign Up"/>
+                <input class="button-input send-signup" type="submit" name="submit" value="Sign Up"/>
             </form>
         </article>
 

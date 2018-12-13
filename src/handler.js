@@ -53,8 +53,6 @@ const handlePublic = (request, response) => {
   });
 };
 
-
-
 // load all talks on page load
 const handleTalks = (request, response) => {
   getData((err, res) => {
@@ -65,10 +63,13 @@ const handleTalks = (request, response) => {
   });
 };
 
-
+const handleSignUp = (request, response) => {
+  console.log(request, " handleSignUp");
+};
 
 module.exports = {
   handleHomeRoute,
   handlePublic,
-  handleTalks
+  handleTalks,
+  handleSignUp
 };
