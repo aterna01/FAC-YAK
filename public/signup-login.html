@@ -13,14 +13,14 @@
 </head>
 <body class="signup-login">
 
-  <header class="nav-bar">
+    <header class="nav-bar">
       <section class="main-section">
         <a href="/"class="logo">
           <img src="img/bolt-icon.png" alt="FAC YAK"/>
         </a>
         <div>
-          <button id="sign_up" class="sign-up button-input">Sign Up</button>
-          <button id="log_in" class="login button-input">Log In</button>
+          <button id="sign_up" class="sign-up button-input"><a href="signup-login.html#signup-heading">Sign Up</a></button>
+          <button id="log_in" class="login button-input"><a href="signup-login.html#login-heading">Log In</a></button>
         </div>
       </section>
     </header>
@@ -34,7 +34,7 @@
     <section class="main-section">
 
         <article>
-            <h2 id ='signup-heading'>Sign Up</h2>
+            <h2 id="signup-heading">Sign Up</h2>
             <form class="signup-form form" method="post" action="/signUp">
                 <label for="signup-name">Name (3-40 characters)</label>
                 <input id="signup-name" class="text-input" type="text" name="name" value="" placeholder= "Enter your name..." autocomplete="off" pattern="[a-zA-Z'\s]{3,40}">
@@ -50,7 +50,7 @@
         </article>
 
         <article>
-            <h2>Login</h2>
+            <h2 id="login-heading">Login</h2>
             <form class="login-form form" method="post" action="/logIn">
                 <label for="login-name">Name (3-40 characters)</label>
                 <input id="login-name" class="text-input" type="text" name="name" value="" placeholder= "Enter your name..." autocomplete="off" pattern="[a-zA-Z'\s]{3,40}">
