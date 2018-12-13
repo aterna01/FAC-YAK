@@ -18,8 +18,7 @@ const router = (req, res) => {
     handlers.handleTalks(req, res);
   }
 
-    // POST stuff and cookies:
-
+  // POST stuff and cookies:
   // } else if (method === "POST" && url.includes("/sendDetails")) {
   //   console.log("this is a post request");
   //   handlers.handlePostData(req, res);
