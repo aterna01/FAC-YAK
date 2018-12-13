@@ -2,21 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>FAC YAK</title>
+  <title>FAC YAK | Add your Talk</title>
   <meta name="description" content="add and view lightning talks at Founders and Coders">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#bd3c59">
   <link rel="shortcut icon" type="image/x-ico" href="img/favicon.ico"/>
-  <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bungee|Source+Sans+Pro" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/reset.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
-<body>
-  <header>
-    <h1>FAC YAK</h1>
-    <p>Come listen to YAK at FAC</p>
+<body class="dashboard">
+
+  <header class="nav-bar">
+    <section class="main-section">
+      <a href="/"class="logo">
+        <img src="img/bolt-icon.png" alt="FAC YAK"/>
+      </a>
+      <div>
+        <button id="sign_up" class="sign-up button-input">Sign Up</button>
+        <button id="log_in" class="login button-input">Log In</button>
+      </div>
+    </section>
   </header>
-  <main>
+
+  <header class="page-header">
+    <h1>FAC YAK - Add your Talk</h1>
+    <p>Post your lightning talk here:</p>
+  </header>
+  
+  <main class="page-content">
 
     <section class="main-section">
         <form class="talk-form form" method="post" action="/sendTalk">
@@ -36,13 +50,8 @@
         </form>
     </section>
 
-
-    <section id="talk_list" class="main-section">
-      <ul></ul>
-    </section>
-
   </main>
   <script type="text/javascript" src="js/request.js"></script>
-  <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

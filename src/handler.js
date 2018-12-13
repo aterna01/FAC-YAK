@@ -53,7 +53,9 @@ const handlePublic = (request, response) => {
   });
 };
 
-//load all talks
+
+
+// load all talks on page load
 const handleTalks = (request, response) => {
   getData((err, res) => {
     if (err) throw err;
@@ -62,6 +64,8 @@ const handleTalks = (request, response) => {
     response.end(output);
   });
 };
+
+
 
 module.exports = {
   handleHomeRoute,
