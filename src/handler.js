@@ -1,15 +1,11 @@
 const fs = require("fs");
 const path = require("path");
+
+// database queries
 const getData = require("./db_handlers/getData");
 const postData = require("./db_handlers/postData");
-// const request = require("request");
+const getUser = require("./db_handlers/getUser");
 
-// getData and postData
-// const postData = require("./handler/postData");
-
-//
-// output talks list on GET
-// const getFoods = require("./handler/getFoods");
 
 // home route
 const handleHomeRoute = (request, response) => {
@@ -64,8 +60,14 @@ const handleTalks = (request, response) => {
   });
 };
 
+
+
+
+
+
+// signup
 const handleSignUp = (request, response) => {
-  console.log(request, " handleSignUp");
+  // console.log(request, " handleSignUp");
 
   // standard form behaviour - data gets sent to a new webpage in html format
 
@@ -79,29 +81,58 @@ const handleSignUp = (request, response) => {
   request.on("end", function() {
     // use form data
     const formData = allTheData.split(",");
-    console.log("formdata : ", formData);
 
     // post to db
     // - args will be: person, food, veg, paid
     postData(formData, (err, res) => {
       if (err) console.log(err);
-      // const postResult = res;
-
-      // run AFTER postData is run - get latest item output to DOM
-      // ...but that doesn't seem to work
-      // getData((err, res) => {
-      //   if (err) throw err;
-      //   const output = JSON.stringify(res);
-      //   response.writeHead(200, { "Content-Type": "application/JSON" });
-      //   response.end(output);
-      // });
     });
   });
 };
+
+
+
+
+
+// handle login on login form submit
+const handleLogin = (request, response) => {
+  
+  // get data from form
+  let allTheData = "";
+  request.on("data", function(chunkOfData) {
+    allTheData += chunkOfData;
+  });
+
+  request.on("end", function() {
+    // use form data
+    const formData = allTheData.split("&");
+
+    const userName = formData[0].split("=")[1];
+    const password = formData[1].split("=")[1];
+
+    // compare user and hashed password to password in database
+    // if matches, log in
+    // console.log(userName, password);
+    getUser(userName, (err, res) => {
+      if (err) console.log(err);
+      // some callback here
+      // maybe writeHead and redirect with res.end?
+    });
+
+
+
+
+
+  });
+}
+
+
+
 
 module.exports = {
   handleHomeRoute,
   handlePublic,
   handleTalks,
-  handleSignUp
+  handleSignUp,
+  handleLogin
 };

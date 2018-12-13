@@ -8,7 +8,6 @@ const getData = cb => {
         console.log(error, "GET data error");
         cb(error);
       } else {
-        console.log(result.rows);
         const talks = result.rows.slice();
         cb(null, talks);
       }

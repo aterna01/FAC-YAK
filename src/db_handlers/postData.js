@@ -22,9 +22,9 @@ const postData = (formData, cb) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(password);
+        // console.log(password);
         password = hash;
-        console.log(password);
+        // console.log(password);
 
         // 1. users table
         dbConnection.query(
