@@ -16,17 +16,15 @@ const router = (req, res) => {
   }
 
   // talks route - on load
-  else if (url.indexOf("/getTalks") !== -1) {
+  else if (url === "/getTalks") {
     handlers.handleTalks(req, res);
   }
 
-  // post route
   else if (url === "/signUp" && method === "POST") {
     handlers.handleSignUp(req, res);
   }
 
   // POST stuff and cookies:
-
   // } else if (method === "POST" && url.includes("/sendDetails")) {
   //   console.log("this is a post request");
   //   handlers.handlePostData(req, res);
