@@ -1,4 +1,5 @@
 const dbConnection = require("../../database/db_connection.js");
+const bcrypt = require("bcryptjs");
 
 // common table expressions
 // - insert into one table, use this to add to another
@@ -14,22 +15,34 @@ const postData = (formData, cb) => {
   // console.log(name);
 
   // password
-  const password = formData[1];
+  let password = formData[1];
 
-  // 1. users table
-  dbConnection.query(
-    // return personId which contains people_id - to be passed in to bookings table
-    "INSERT INTO users (name, password) VALUES ($1, $2)",
-    [name, password],
-    (err, success) => {
-      // console.log(personId); // logs out object for person, passed into bookings
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(password, salt, function(err, hash) {
       if (err) {
-        return err;
+        console.log(err);
       } else {
-        cb(null);
+        console.log(password);
+        password = hash;
+        console.log(password);
+
+        // 1. users table
+        dbConnection.query(
+          // return personId which contains people_id - to be passed in to bookings table
+          "INSERT INTO users (name, password) VALUES ($1, $2)",
+          [name, password],
+          (err, success) => {
+            // console.log(personId); // logs out object for person, passed into bookings
+            if (err) {
+              return err;
+            } else {
+              cb(null);
+            }
+          }
+        );
       }
-    }
-  );
+    });
+  });
 };
 
 module.exports = postData;
