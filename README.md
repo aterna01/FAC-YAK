@@ -16,13 +16,14 @@ A thing where you can add and view lightning talks at Founders and Coders. Sign 
 ![yak](https://i.imgur.com/OGfSmfb.jpg)
 
 
-## To get it running:
+## To get it running locally:
 1. clone repo
 2. `npm install`
 3. run database build scripts:
     `node database/bd_build.js` - main database, hosted on heroku. **NOTE** this will overwrite current database
     `node database/bd_build_test.js` - testing database
-4. view project on [port 8000](http://localhost:8000/)
+4. `npm run dev` 
+5. view project on [port 8000](http://localhost:8000/)
 
 ### Dev Dependencies:
 - nodemon
@@ -38,3 +39,5 @@ A thing where you can add and view lightning talks at Founders and Coders. Sign 
 - jsonwebtoken
 
 
+NOTE: error in travis CI at pip install - see CoTechServices travis.yml
+- also, is pip installed + listed in package.json, or conflicting with codecov

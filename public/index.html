@@ -11,18 +11,32 @@
   <link rel="stylesheet" type="text/css" href="css/reset.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
-<body>
-  <header>
-    <h1>FAC YAK</h1>
-    <p>Come listen to YAK at FAC</p>
-  </header>
-  <main>
+<body class="home">
 
+  <header class="nav-bar">
+    <section class="main-section">
+      <a href="/"class="logo">
+        <img src="img/bolt-icon.png" alt="FAC YAK"/>
+      </a>
+      <div>
+        <button id="sign_up" class="sign-up button-input">Sign Up</button>
+        <button id="log_in" class="login button-input">Log In</button>
+      </div>
+    </section>
+  </header>
+
+  <header class="page-header">
+    <h1>FAC YAK</h1>
+    <p>Come listen to YAK at FAC<br>...also know as lightning talks</p>
+  </header>
+
+  <main class="page-content">
     <section id="talk_list" class="main-section">
+      <h2>The latest Yak...</h2>
       <ul></ul>
     </section>
-
   </main>
+
   <script type="text/javascript" src="js/request.js"></script>
   <script type="text/javascript" src="js/scripts.js"></script>
 </body>

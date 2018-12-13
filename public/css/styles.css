@@ -1,11 +1,15 @@
 :root {
-
-  /*
-  #bd3c59 
-  #ff0039
-  */
+  --pink: #bd3c59;
+  --pink-hover: #ff0039;
+  --green: #1f7736;
+  --green-hover: #0ed642;
 }
+/* color: var(--pink); */
 
+/* set border-box on everything */
+* {
+  box-sizing: border-box;
+}
 
 body {
   color: black;
@@ -13,14 +17,51 @@ body {
   font-family: 'Bungee', cursive;
   font-weight: 400;
   line-height: 1.4;
+  text-shadow: 0.1em 0.1em 0.1em white;
+  background:
+    radial-gradient(transparent, rgba(0, 0, 0, 0.5)),
+    url('../img/fac-yak_bg.jpg');
+  background-repeat: no-repeat;
+  /* 100vh with no overflow = background-size of cover
+    - keeps bg image size consistent, but if exceed viewport height, left with white bg underneath
+  */
+  background-size: cover; /* set to auto on login and dashboard */
+  /* background-size: 100%; */
+  /* height: 100%; */
+  height: 100vh;
+
 }
+.dashboard,
+.signup-login {
+  background-size: auto;
+}
+/*
+if only using bg image on home, add this:
+body.home {
+  text-shadow: 0.1em 0.1em 0.1em white;
+}
+*/
 
 
 h1 {
-  font-size: 3rem;
+  font-size: 3.25rem;
   font-weight: 700;
   line-height: 1.6;
-  margin: 0 0 2rem;
+  margin: 0 0 1rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+h3 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 1rem;
 }
 
 p {
@@ -40,72 +81,116 @@ a {
 
 
 /* general spacing */
-header,
+.page-header,
 .main-section {
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
-  box-sizing: border-box;
+}
+
+
+/* nav bar */
+.nav-bar {
+  background-color: black;
+  color: white;
+  padding: 1rem 0;
+}
+.nav-bar .main-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo img {
+  width: 100%;
+  max-width: 4rem;
+}
+.button-input.login {
+  margin-left: 1rem;
 }
 
 
 
-.registration-form {
+
+
+/* main */
+.page-content .main-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  /* border-top: 2px solid; */
+}
+
+
+
+
+/* forms */
+.form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding : 2rem 0;
+  padding : 1rem;
   margin-top : 2rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
   font-family: 'Bungee', cursive;
+  text-shadow: none;/* reset text shadow on body */
 }
 
-.registration-form label {
+.form label {
   font-size: 1.25rem;
-  margin-bottom : 0.5rem;
+  margin-bottom : 0.25rem;
 }
 
 
-/* submit button */
+/* button & input type=submit */
 .button-input {
   align-self: flex-end;
   font-family: 'Bungee', cursive;
   font-size: 1.5rem;
+  letter-spacing: 0.05rem;
   padding: 1rem;
-  box-sizing: border-box;
   border: 0;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color ease-in-out 0.3s;
-  /* colour */
-  color: var(--blue-fg);
-  background-color: #bd3c59;
+  color: white;
+  background-color: var(--pink);
 }
-
 .button-input:hover,
 .button-input:focus {
-  background-color: #ff0039;
+  background-color: var(--pink-hover);
+}
+
+
+/* login (green button) */
+.button-input.login {
+  background-color: var(--green);;
+}
+.button-input.login:hover,
+.button-input.login:focus {
+  background-color: var(--green-hover);;
 }
 
 
 
 
-/* text and select input */
-.text-input,
-.select-input {
+
+
+/* text input */
+.text-input {
   font-family: 'Bungee', cursive;
   font-size: 1.5rem;
   width: 100%;
   display: block;
-  margin-bottom: 1rem;
-  padding: 1rem 0.5rem;
-  box-sizing: border-box;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 0.5rem;
   border-radius: 0.5rem;
-  border: 2px solid #bd3c59;
+  border: 2px solid var(--pink);
 }
 .text-input:focus,
 .text-input:active {
-  border: 2px solid #ff0039;
+  border: 2px solid var(--pink-hover);
 }
 
 
@@ -113,8 +198,8 @@ header,
 
 
 .error-red {
-  background-color : #bd3c59;
-  border: 2px solid #ff0039;
+  background-color : var(--pink);
+  border: 2px solid var(--pink-hover);
   color: white;
 }
 
