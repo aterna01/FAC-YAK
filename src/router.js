@@ -1,9 +1,17 @@
 const handlers = require("./handler");
 
-// read file extensions
-const path = require("path");
-const filePath = path.join(__dirname, "..", "public", "index.html");
+const routes = [
+  "/img/favicon.ico",
+  "/img/bolt-icon.png",
+  "/css/reset.css",
+  "/css/styles.css",
+  "/js/request.js",
+  "/js/scripts.js"
+];
 
+// read file extensions
+// const path = require("path");
+// const filePath = path.join(__dirname, "..", "public", "index.html");
 
 const router = (req, res) => {
   const url = req.url;
@@ -13,22 +21,21 @@ const router = (req, res) => {
   if (url === "/") {
     handlers.handleHomeRoute(req, res);
   }
-  
+
   // load files
-  else if (filePath.indexOf("public") !== -1) {
-    handlers.handlePublic(req, res);    
-  }
+  else if (routes.includes(url)) {
+    handlers.handlePublic(req, res);
 
-  // POST stuff and cookies:
+    // talks route
+  } else if (url.indexOf("/getTalks") !== -1) {
+    handlers.handleTalks(req, res);
 
-  // else if (url.indexOf("/getFoods") !== -1) {
-  //   handlers.handleFoods(req, res);
-  // } else if (method === "POST" && url.includes("/sendDetails")) {
-  //   console.log("this is a post request");
-  //   handlers.handlePostData(req, res);
-  
-  
-  else {
+    // POST stuff and cookies:
+
+    // } else if (method === "POST" && url.includes("/sendDetails")) {
+    //   console.log("this is a post request");
+    //   handlers.handlePostData(req, res);
+  } else {
     res.writeHead(404, "Content-Type: text/html");
     res.end("<h1>404 File not found</h1>");
   }
