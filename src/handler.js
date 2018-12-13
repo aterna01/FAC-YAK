@@ -107,7 +107,7 @@ const handleSignUp = (request, response) => {
 
           "Set-Cookie": `jwt=${cookie}; HttpOnly`
         });
-        console.log("HELLO2");
+        console.log("Hi");
         return response.end("end");
       }
     });
