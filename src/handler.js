@@ -1,17 +1,14 @@
 const fs = require("fs");
 const path = require("path");
+const getData = require("./db_handlers/getData");
 // const request = require("request");
-
-
 
 // getData and postData
 // const postData = require("./handler/postData");
-// const getData = require("./handler/getData");
+
 //
 // output talks list on GET
 // const getFoods = require("./handler/getFoods");
-
-
 
 // home route
 const handleHomeRoute = (request, response) => {
@@ -27,8 +24,6 @@ const handleHomeRoute = (request, response) => {
     }
   });
 };
-
-
 
 // load files
 const handlePublic = (request, response) => {
@@ -59,7 +54,21 @@ const handlePublic = (request, response) => {
 };
 
 
+
+// load all talks on page load
+const handleTalks = (request, response) => {
+  getData((err, res) => {
+    if (err) throw err;
+    const output = JSON.stringify(res);
+    response.writeHead(200, { "Content-Type": "application/JSON" });
+    response.end(output);
+  });
+};
+
+
+
 module.exports = {
   handleHomeRoute,
-  handlePublic
+  handlePublic,
+  handleTalks
 };

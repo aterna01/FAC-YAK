@@ -33,7 +33,8 @@ body {
 }
 .dashboard,
 .signup-login {
-  background-size: auto;
+  /* background-size: auto; */
+  height: auto;
 }
 /*
 if only using bg image on home, add this:
@@ -133,7 +134,7 @@ a {
   margin-top : 2rem;
   border-radius: 0.5rem;
   background-color: rgba(255, 255, 255, 0.5);
-  font-family: 'Bungee', cursive;
+  font-family: 'Source Sans Pro', sans-serif;
   text-shadow: none;/* reset text shadow on body */
 }
 
@@ -179,7 +180,7 @@ a {
 
 /* text input */
 .text-input {
-  font-family: 'Bungee', cursive;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 1.5rem;
   width: 100%;
   display: block;
@@ -204,3 +205,31 @@ a {
 }
 
 
+
+
+
+/* talks list */
+.talks {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.5rem;
+  width: 100%;
+  display: block;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--pink);
+  background-color: white;
+}
+
+.talk-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+  padding-right: 1rem;
+  border-right: 2px solid black;
+}
+.person,
+.date,
+.time {
+  padding-right: 1rem;
+}
