@@ -6,6 +6,7 @@ const getData = require("./db_handlers/getData");
 const postData = require("./db_handlers/postData");
 const getUser = require("./db_handlers/getUser");
 
+const bcrypt = require("bcryptjs");
 
 // home route
 const handleHomeRoute = (request, response) => {
@@ -60,11 +61,6 @@ const handleTalks = (request, response) => {
   });
 };
 
-
-
-
-
-
 // signup
 const handleSignUp = (request, response) => {
   // console.log(request, " handleSignUp");
@@ -90,13 +86,8 @@ const handleSignUp = (request, response) => {
   });
 };
 
-
-
-
-
 // handle login on login form submit
 const handleLogin = (request, response) => {
-  
   // get data from form
   let allTheData = "";
   request.on("data", function(chunkOfData) {
@@ -117,17 +108,34 @@ const handleLogin = (request, response) => {
       if (err) console.log(err);
       // some callback here
       // maybe writeHead and redirect with res.end?
+      console.log(
+        "provided pass: ",
+        password,
+        "getuser res (handler): ",
+        res[0].password
+      );
+      bcrypt.compare(password, res[0].password, function(err, matched) {
+        if (err) {
+          re.statusCode = 500;
+          console.log("Error with compare function: ", err);
+          return;
+        } else if (!matched) {
+          console.log(matched);
+          response.writeHead(301, {
+            location: "/signup-login.html#login-heading"
+          });
+          response.end(
+            "Error logging in: provided password or email is incorrect"
+          );
+          return;
+        } else {
+          response.writeHead(301, { Location: "/dashboard.html" });
+          response.end("Success Logging In!");
+        }
+      });
     });
-
-
-
-
-
   });
-}
-
-
-
+};
 
 module.exports = {
   handleHomeRoute,
