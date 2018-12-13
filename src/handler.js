@@ -2,6 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const getData = require("./db_handlers/getData");
 const postData = require("./db_handlers/postData");
+
+const { parse } = require("cookie");
+const { sign, verify } = require("jsonwebtoken");
+
+const SECRET = "Ihatecheese";
+const userDetails = { userId: 5, role: "admin" };
 // const request = require("request");
 
 // getData and postData
@@ -26,6 +32,11 @@ const handleHomeRoute = (request, response) => {
   });
 };
 
+//res.setHeader('Set-Cookie', 'logged_in=true');
+
+// OR
+
+//res.writeHead(200, { 'Set-Cookie': 'logged_in=true' });
 // load files
 const handlePublic = (request, response) => {
   const url = request.url;
@@ -66,9 +77,7 @@ const handleTalks = (request, response) => {
 
 const handleSignUp = (request, response) => {
   console.log(request, " handleSignUp");
-
   // standard form behaviour - data gets sent to a new webpage in html format
-
   // receive data from the form
   let allTheData = "";
   request.on("data", function(chunkOfData) {
@@ -80,23 +89,24 @@ const handleSignUp = (request, response) => {
     // use form data
     const formData = allTheData.split(",");
     console.log("formdata : ", formData);
-
     // post to db
     // - args will be: person, food, veg, paid
     postData(formData, (err, res) => {
-      if (err) console.log(err);
-      // const postResult = res;
-
-      // run AFTER postData is run - get latest item output to DOM
-      // ...but that doesn't seem to work
-      // getData((err, res) => {
-      //   if (err) throw err;
-      //   const output = JSON.stringify(res);
-      //   response.writeHead(200, { "Content-Type": "application/JSON" });
-      //   response.end(output);
-      // });
+      if (err) {
+        console.log(err);
+        //this file logs the user console.log
+      }
     });
   });
+  const cookie = sign(userDetails, SECRET);
+  console.log(cookie);
+  response.writeHead(302, {
+    //res.redirect('/google.com');
+    Location: "http://localhost:8000/public/index.html",
+
+    "Set-Cookie": `jwt=${cookie}; HttpOnly`
+  });
+  response.end("end");
 };
 
 module.exports = {
