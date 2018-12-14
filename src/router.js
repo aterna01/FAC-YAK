@@ -30,6 +30,12 @@ const router = (req, res) => {
     handlers.handleLogin(req, res);
   }
 
+
+  // dashboard route - after signup / login
+  else if (url === "/dashboard") {
+    handlers.handleDashboard(req, res);
+  }
+
   // load files. Must load last!
   else if (filePath.indexOf("public") !== -1) {
     handlers.handlePublic(req, res);

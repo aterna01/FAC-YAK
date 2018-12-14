@@ -4,6 +4,11 @@ const url = require("url");
 const env = require("env2");
 env("./config.env");
 
+let DATABASE_URL = process.env.DB_URL;
+if (process.env.NODE_ENV === "test") {
+  DATABASE_URL = process.env.TEST_DB_URL;
+}
+
 if (!process.env.DATABASE_URL) {
   throw new Error("Environment variable DATABASE_URL must be set");
 }

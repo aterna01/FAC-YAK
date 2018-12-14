@@ -27,41 +27,41 @@ if (body.classList.contains("home")) {
 
 
 // SIGNUP / LOGIN PAGE
-if (body.classList.contains("signup-login")) {
-  const signupForm = document.querySelector(".signup-form");
-  signupForm.addEventListener("submit", e => {
-    e.preventDefault();
+// if (body.classList.contains("signup-login")) {
+//   const signupForm = document.querySelector(".signup-form");
+//   signupForm.addEventListener("submit", e => {
+//     e.preventDefault();
 
-    // form info
-    const name = e.target[0].value;
-    const password = e.target[1];
-    const confirmPassword = e.target[2];
-    const formInfo = [name, password, confirmPassword];
+//     // form info
+//     const name = e.target[0].value;
+//     const password = e.target[1];
+//     const confirmPassword = e.target[2];
+//     const formInfo = [name, password, confirmPassword];
 
-    // if password matches, run post request
-    if (password.value === confirmPassword.value) {
-      requestFunction("POST", "/signUp", submitMessage, formInfo);
-    } else {
-      failMessage(e);
-      // add error class to password fields
-      password.classList.add('error-red');
-      confirmPassword.classList.add('error-red');
-    }
+//     // if password matches, run post request
+//     if (password.value === confirmPassword.value) {
+//       requestFunction("POST", "/signUp", submitMessage, formInfo);
+//     } else {
+//       failMessage(e);
+//       // add error class to password fields
+//       password.classList.add('error-red');
+//       confirmPassword.classList.add('error-red');
+//     }
 
-  });
-}
+//   });
+// }
 
 
 
 
 // success and fail messages
-const submitMessage = () => {
-  const h2 = document.querySelector("#signup-heading");
-  h2.textContent = "Sign up form submitted successfully";
-  form.reset();
-};
+// const submitMessage = () => {
+//   const h2 = document.querySelector("#signup-heading");
+//   h2.textContent = "Sign up form submitted successfully";
+//   form.reset();
+// };
 
-const failMessage = (e) => {
-  const h2 = document.querySelector("#signup-heading");
-  h2.textContent = "Error - passwords do not match";
-};
+// const failMessage = (e) => {
+//   const h2 = document.querySelector("#signup-heading");
+//   h2.textContent = "Error - passwords do not match";
+// };

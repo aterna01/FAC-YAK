@@ -4,7 +4,14 @@ const path = require("path");
 // database queries
 const getData = require("./db_handlers/getData");
 const postData = require("./db_handlers/postData");
-const getUser = require("./db_handlers/getUser");
+// const getUser = require("./db_handlers/getUser");
+
+
+// cookie / jwt stuff
+const { parse } = require("cookie");
+const { sign, verify } = require("jsonwebtoken");
+ const SECRET = "Ihatecheese";
+const userDetails = { userId: 5, role: "admin" };
 
 
 // home route
@@ -50,12 +57,23 @@ const handlePublic = (request, response) => {
   });
 };
 
+
+
+
 // load all talks on page load
 const handleTalks = (request, response) => {
   getData((err, res) => {
     if (err) throw err;
     const output = JSON.stringify(res);
     response.writeHead(200, { "Content-Type": "application/JSON" });
+    
+    // not sure we want to reset the cookie, attach this to logout button handler
+    response.writeHead(200, {
+      "Content-Type": "application/JSON",
+      "Set-Cookie": "jwt=0; Max-Age=0"
+    });
+
+
     response.end(output);
   });
 };
@@ -67,26 +85,52 @@ const handleTalks = (request, response) => {
 
 // signup
 const handleSignUp = (request, response) => {
-  // console.log(request, " handleSignUp");
-
-  // standard form behaviour - data gets sent to a new webpage in html format
 
   // receive data from the form
   let allTheData = "";
   request.on("data", function(chunkOfData) {
-    // text from form - outputs buffers
     allTheData += chunkOfData;
   });
 
+  // on end
   request.on("end", function() {
-    // use form data
-    const formData = allTheData.split(",");
+
+    // format form data
+    const formDataArray = allTheData.split("&");
+
+    // console.log(formDataArray);
+    const name = formDataArray[0].split("=")[1];
+    // console.log(name);
+    const password = formDataArray[1].split("=")[1];
+    // console.log(password);
+    const namePassword = [name, password];
+
+
 
     // post to db
-    // - args will be: person, food, veg, paid
-    postData(formData, (err, res) => {
-      if (err) console.log(err);
+    postData(namePassword, (err, res) => {
+      if (err) {
+        console.log('postdata error:', err);
+      }
+      // postdata worked
+      else {
+        const cookie = sign(userDetails, SECRET);
+        console.log(namePassword[0] + '\'s cookie is: ', cookie);
+
+        response.writeHead(
+          302,
+          {
+            Location: "/dashboard",
+            "Set-Cookie": `jwt=${cookie}; HttpOnly; Max-Age=9000`
+          }
+        )
+        response.end();
+      }
+      
     });
+
+
+
   });
 };
 
@@ -94,37 +138,76 @@ const handleSignUp = (request, response) => {
 
 
 
-// handle login on login form submit
-const handleLogin = (request, response) => {
-  
-  // get data from form
-  let allTheData = "";
-  request.on("data", function(chunkOfData) {
-    allTheData += chunkOfData;
-  });
 
-  request.on("end", function() {
-    // use form data
-    const formData = allTheData.split("&");
+// dashboard
+// - possibly use a 302 redirect instead
+// - don't need to load files
+const handleDashboard = (request, response) => {
 
-    const userName = formData[0].split("=")[1];
-    const password = formData[1].split("=")[1];
-
-    // compare user and hashed password to password in database
-    // if matches, log in
-    // console.log(userName, password);
-    getUser(userName, (err, res) => {
-      if (err) console.log(err);
-      // some callback here
-      // maybe writeHead and redirect with res.end?
+  // cookie set - send to dashboard
+  if (request.headers.cookie) {
+    const filePath = path.join(__dirname, "..", "public", "dashboard.html");
+    fs.readFile(filePath, (error, file) => {
+      if (error) {
+        console.log(error);
+        response.writeHead(500, { "Content-Type": "text/html" });
+        response.end("<h1>Sorry, we've had a problem on our end</h1>");
+      } else {
+        response.writeHead(200, { "Content-Type": "text/html" });
+        response.end(file);
+      }
     });
-
-
-
-
-
-  });
+  }
+  
+  // no cookie set - send to home
+  else {
+    filePath = path.join(__dirname, "..", "public", "signup-login.html");
+    fs.readFile(filePath, (error, file) => {
+      if (error) {
+        console.log(error);
+        response.writeHead(500, { "Content-Type": "text/html" });
+        response.end("<h1>Sorry, we've had a problem on our end</h1>");
+      } else {
+        response.writeHead(200, { "Content-Type": "text/html" });
+        response.end(file);
+      }
+    });
+  }
 }
+
+
+
+
+
+
+
+// handle login on login form submit
+// const handleLogin = (request, response) => {
+  
+//   // get data from form
+//   let allTheData = "";
+//   request.on("data", function(chunkOfData) {
+//     allTheData += chunkOfData;
+//   });
+
+//   request.on("end", function() {
+//     // use form data
+//     const formData = allTheData.split("&");
+
+//     const userName = formData[0].split("=")[1];
+//     const password = formData[1].split("=")[1];
+
+//     // compare user and hashed password to password in database
+//     // if matches, log in
+//     // console.log(userName, password);
+//     getUser(userName, (err, res) => {
+//       if (err) console.log(err);
+//       // some callback here
+//       // maybe writeHead and redirect with res.end?
+//     });
+
+//   });
+// }
 
 
 
@@ -134,5 +217,6 @@ module.exports = {
   handlePublic,
   handleTalks,
   handleSignUp,
-  handleLogin
+  handleDashboard
+  // handleLogin
 };
