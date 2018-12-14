@@ -18,10 +18,11 @@ const router = (req, res) => {
   // talks route - on load
   else if (url === "/getTalks") {
     handlers.handleTalks(req, res);
-  }
-
-  else if (url === "/signUp" && method === "POST") {
+    //post data
+  } else if (url === "/signUp" && method === "POST") {
     handlers.handleSignUp(req, res);
+  } else if (url === "/checkAuthentification") {
+    handlers.handlerAuthenticate(req, res);
   }
 
   // POST stuff and cookies:

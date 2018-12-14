@@ -59,6 +59,7 @@ const handlePublic = (request, response) => {
     } else {
       response.writeHead(200, {
         "Content-Type": `${extensionType[extension]}`
+        // "Set-Cookie": "jwt=0; Max-Age=0"
       });
       response.end(file);
     }
@@ -70,13 +71,16 @@ const handleTalks = (request, response) => {
   getData((err, res) => {
     if (err) throw err;
     const output = JSON.stringify(res);
-    response.writeHead(200, { "Content-Type": "application/JSON" });
+    response.writeHead(200, {
+      "Content-Type": "application/JSON",
+      "Set-Cookie": "jwt=0; Max-Age=0"
+    });
     response.end(output);
   });
 };
 
 const handleSignUp = (request, response) => {
-  console.log(request, " handleSignUp");
+  console.log(request.formdata, " handleSignUp");
   // standard form behaviour - data gets sent to a new webpage in html format
   // receive data from the form
   let allTheData = "";
@@ -88,24 +92,37 @@ const handleSignUp = (request, response) => {
   request.on("end", function() {
     // use form data
     const formData = allTheData.split(",");
-    console.log("formdata : ", formData);
+    console.log("formdata is:", formData);
+
+    let formDataArray = formData.join("").split("&");
+    console.log(formDataArray);
+
+    let name = formDataArray[0].split("=")[1];
+    console.log(name);
+
+    let password = formDataArray[1].split("=")[1];
+    console.log(password);
+
+    const namePassword = [name, password];
+
     // post to db
-    // - args will be: person, food, veg, paid
-    postData(formData, (err, res) => {
+
+    postData(namePassword, (err, res) => {
+      console.log("yep");
       if (err) {
-        console.log(err);
+        console.log("posdata error is: ", err);
         //this file logs the user console.log
       } else {
         const cookie = sign(userDetails, SECRET);
         console.log(cookie);
         console.log("HELLO");
-        // response.redirect("/");
+        // response.redirect("/dashboard");
         response.writeHead(302, {
           //;
 
-          Location: "/getTalks",
+          Location: "/checkAuthentification",
 
-          "Set-Cookie": `jwt=${cookie}; HttpOnly`
+          "Set-Cookie": `jwt=${cookie}; HttpOnly; Max-Age=9000`
         });
         console.log("Hi");
         return response.end("end");
@@ -114,9 +131,45 @@ const handleSignUp = (request, response) => {
   });
 };
 
+const handlerAuthenticate = (request, response) => {
+  if (request.headers.cookie) {
+    let filePath = path.join(__dirname, "..", "public", "dashboard.html");
+    fs.readFile(filePath, (error, file) => {
+      if (error) {
+        console.log(error);
+        response.writeHead(500, { "Content-Type": "text/html" });
+        response.end("<h1>Sorry, we've had a problem on our end</h1>");
+      } else {
+        response.writeHead(200, { "Content-Type": "text/html" });
+        response.end(file);
+      }
+    });
+
+    // console.log("here is your cookie", req.headers.cookie);
+    // res.writeHead(302, { Location: "./public/dashboard.html" });
+    // res.end();
+  } else {
+    console.log("COOKIE?", request.headers.cookie);
+    filePath = path.join(__dirname, "..", "public", "index.html");
+    fs.readFile(filePath, (error, file) => {
+      if (error) {
+        console.log(error);
+        response.writeHead(500, { "Content-Type": "text/html" });
+        response.end("<h1>Sorry, we've had a problem on our end</h1>");
+      } else {
+        response.writeHead(200, { "Content-Type": "text/html" });
+        response.end(file);
+      }
+    });
+    // response.writeHead(302, { Location: "./public/index.html" });
+    // response.end();
+  }
+};
+
 module.exports = {
   handleHomeRoute,
   handlePublic,
   handleTalks,
-  handleSignUp
+  handleSignUp,
+  handlerAuthenticate
 };
