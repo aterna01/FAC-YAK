@@ -23,7 +23,8 @@ A thing where you can add and view lightning talks at Founders and Coders. Sign 
     `node database/bd_build.js` - main database, hosted on heroku. **NOTE** this will overwrite current database
     `node database/bd_build_test.js` - testing database
 4. `npm run dev` 
-5. view project on [port 8000](http://localhost:8000/)
+5. Create a config.env file and ask us for the contents!
+6. view project on [port 8000](http://localhost:8000/)
 
 ### Dev Dependencies:
 - nodemon
